@@ -22,13 +22,22 @@ from opentelemetry.instrumentation.requests import RequestsInstrumentor
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
+# from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
+
 
 
 ## HoneyComb -------
 # Initialize tracing and an exporter that can send data to Honeycomb
 provider = TracerProvider()
+
+# Sending the spans to Honeycomb
 processor = BatchSpanProcessor(OTLPSpanExporter())
 provider.add_span_processor(processor)
+
+# # Display the spans from the local docker env
+# console_processor = SimpleSpanProcessor(ConsoleSpanExporter())
+# provider.add_span_processor(console_processor)
+
 trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 
