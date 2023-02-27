@@ -3,4 +3,5 @@
     "yaml.schemas": {
         "https://gitpod.io/schemas/gitpod-schema.json": "file:///workspace/aws-bootcamp-cruddur-2023/.gitpod.yml"
     }
+    ""
 }
