@@ -47,6 +47,7 @@ class HomeActivities:
       'expires_at': (now + timedelta(hours=12)).isoformat(),
       'likes': 0,
       'replies': []
+      
     }
     ]
     span.set_attribute("app.result_length", len(results))
