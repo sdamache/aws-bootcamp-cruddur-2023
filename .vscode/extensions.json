@@ -20,7 +20,6 @@
         "hashicorp.terraform",
         "oderwat.indent-rainbow",
         "visualstudioexptteam.vscodeintellicode",
-        "kiteco.kite",
         "christian-kohler.npm-intellisense",
         "ionutvmi.path-autocomplete",
         "esbenp.prettier-vscode",
