@@ -14,7 +14,6 @@
         "run-at-scale.terraform-doc-snippets",
         "atishay-jain.all-autocomplete",
         "njpwerner.autodocstring",
-        "mark-tucker.aws-cli-configure",
         "amazonwebservices.aws-toolkit-vscode",
         "streetsidesoftware.code-spell-checker",
         "hashicorp.terraform",
