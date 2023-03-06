@@ -65,9 +65,9 @@ trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 
 
-# ## AWS X-Ray
-# xray_url = os.getenv("AWS_XRAY_URL")
-# xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+## AWS X-Ray
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 
 #Application code for flask
@@ -97,8 +97,8 @@ def init_rollbar():
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 
-# ## AWS X-Ray
-# XRayMiddleware(app, xray_recorder)
+## AWS X-Ray
+XRayMiddleware(app, xray_recorder)
 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
@@ -161,6 +161,7 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
+@xray_recorder.capture('home_activities')
 def data_home():
   data = HomeActivities.run()
   return data, 200
@@ -171,6 +172,7 @@ def data_notifications():
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
+@xray_recorder.capture('user_activities')
 def data_handle(handle):
   model = UserActivities.run(handle)
   if model['errors'] is not None:
