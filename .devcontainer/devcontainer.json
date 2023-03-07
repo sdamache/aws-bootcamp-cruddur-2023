@@ -7,6 +7,16 @@
 	},
 	"remoteEnv": {
 		"AWS_CLI_AUTO_PROMPT": "on-partial"
+	},
+	"portsAttributes": {
+		"3000": {
+			"label": "My Front end",
+			"privacy": "public"
+		},
+		"4567":{
+			"label": "My backend application",
+			"privacy": "public"
+		}
 	},	
 	"customizations": {
 		"vscode": {
