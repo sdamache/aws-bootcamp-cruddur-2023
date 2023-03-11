@@ -14,7 +14,12 @@ class FlaskAWSCognitoError(Exception):
 class TokenVerifyError(Exception):
     pass
 
-
+def extract_access_token(request_headers):
+        access_token = None
+        auth_header = request_headers.get(HTTP_HEADER)
+        if auth_header and " " in auth_header:
+            _, access_token = auth_header.split()
+        return access_token
 
 class CognitoTokenVerification:
     def __init__(self, user_pool_id, user_pool_client_id, region, request_client=None):
@@ -30,22 +35,15 @@ class CognitoTokenVerification:
             self.request_client = request_client
         self._load_jwk_keys()
         
-    @classmethod
-    def extract_access_token(request_headers):
-        access_token = None
-        auth_header = request_headers.get(HTTP_HEADER)
-        if auth_header and " " in auth_header:
-            _, access_token = auth_header.split()
-        return access_token    
-    
-
     def _load_jwk_keys(self):
-        keys_url = f"https://cognito-idp.{self.region}.amazonaws.com/{self.user_pool_id}/.well-known/jwks.json"
-        try:
-            response = self.request_client(keys_url)
-            self.jwk_keys = response.json()["keys"]
-        except requests.exceptions.RequestException as e:
-            raise FlaskAWSCognitoError(str(e)) from e
+            keys_url = f"https://cognito-idp.{self.region}.amazonaws.com/{self.user_pool_id}/.well-known/jwks.json"
+            print(keys_url)
+            try:
+                response = self.request_client(keys_url)
+                self.jwk_keys = response.json()["keys"]
+            except requests.exceptions.RequestException as e:
+                raise FlaskAWSCognitoError(str(e)) from e
+
 
     @staticmethod
     def _extract_headers(token):
