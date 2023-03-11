@@ -3,6 +3,7 @@ from flask import request
 from flask_cors import CORS, cross_origin
 import os
 
+from lib.cognito_token_verification import CognitoTokenVerification, extract_access_token, TokenVerifyError
 from services.home_activities import *
 from services.user_activities import *
 from services.notifications_activities import *
@@ -72,6 +73,13 @@ tracer = trace.get_tracer(__name__)
 
 #Application code for flask
 app = Flask(__name__)
+
+
+cognito_token_verification = CognitoTokenVerification(
+  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  region=os.getenv("AWS_DEFAULT_REGION")
+)
 
 ## Rollbar
 rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
@@ -162,6 +170,19 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 def data_home():
+  access_token = extract_access_token(request.headers)
+  try:
+    claims = cognito_token_verification.verify(access_token)
+    # authenicatied request
+    app.logger.debug("authenicated")
+    app.logger.debug(claims)
+    app.logger.debug(claims['username'])
+    data = HomeActivities.run(cognito_user_id=claims['username'])
+  except TokenVerifyError as e :
+    app.logger.debug(e)
+    app.logger.debug("unauthenticated")
+    
+
   data = HomeActivities.run()
   return data, 200
 
