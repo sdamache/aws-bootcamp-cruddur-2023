@@ -1,5 +1,6 @@
 import json
 import psycopg2
+import os
 
 def lambda_handler(event, context):
     user = event['request']['userAttributes']
@@ -11,24 +12,29 @@ def lambda_handler(event, context):
     user_cognito_id = user['sub']
     
     try:
-        conn = psycopg2.connect(os.getenv("CONNECTION_URL"))
-        cur = conn.cursor()
         
-        
+        print("try block started")
         sql_query = f"""
-        "INSERT INTO users (
+        INSERT INTO public.users (
             display_name,
             email, 
             handle, 
             cognito_user_id
             ) 
         VALUES(
-            {user_display_name},
-            {user_email}, 
-            {user_handle}, 
-            {user_cognito_id}
-            )"
+            '{user_display_name}',
+            '{user_email}', 
+            '{user_handle}', 
+            '{user_cognito_id}'
+            )
         """
+        conn = psycopg2.connect(os.getenv("CONNECTION_URL"))
+        cur = conn.cursor()
+        
+        print("SQL-----")
+        print(sql_query)
+        
+
         
         cur.execute(sql_query)
         conn.commit() 
