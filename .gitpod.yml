@@ -2,7 +2,7 @@ tasks:
   - name: aws-cli
     env:
       AWS_CLI_AUTO_PROMPT: on-partial
-    command: |
+    init: |
       cd /workspace
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
@@ -13,7 +13,7 @@ tasks:
       cd frontend-react-js
       npm i
   - name: postgres
-    command: |
+    init: |
       curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
       echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
       sudo apt update
@@ -25,6 +25,24 @@ tasks:
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
+    - ms-azuretools.vscode-docker
+    - formulahendry.docker-explorer
+    - henriiik.docker-linter
+    - formulahendry.docker-extension-pack
+    - donjayamanne.githistory
+    - mhutchie.git-graph
+    - eamodio.gitlens
+    - GitHub.copilot
+    - GitHub.github-vscode-theme
+    - PKief.material-icon-theme
+    - vscode-icons-team.vscode-icons
+    - Atishay-Jain.All-Autocomplete
+    - amazonwebservices.aws-toolkit-vscode
+    - streetsidesoftware.code-spell-checker
+    - GitHub.copilot-labs
+    - oderwat.indent-rainbow
+    - nickdemayo.vscode-json-editor
+    - esbenp.prettier-vscode
 
 ports:
   - name: frontend
