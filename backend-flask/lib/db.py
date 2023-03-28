@@ -10,12 +10,12 @@ class DB():
  # This code connects to a database using a connection URL. The connection URL is
 # read from the environment variable CONNECTION_URL. The connection is stored
 # in the pool variable.
-  def init_pool():
+  def init_pool(self):
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
   
   # We want to commit data to the database  
-  def query_commit(sql):
+  def query_commit(self,sql):
     try:
       conn = self.pool.connection()
       cur = conn.cursor() 
@@ -25,7 +25,7 @@ class DB():
       self. print_sql_err(errors)
       
   # when we want to return a json object
-  def query_object_json(sql):
+  def query_object_json(self,sql):
       # Query the database for the requested data and return a JSON object.
       # The query is wrapped in a function that returns the data in an object.
       # This function is passed to the database cursor as a parameter.
@@ -54,7 +54,7 @@ class DB():
   # Returns: JSON object
   # Context: This function is used to execute a SQL query statement and return the results in JSON format.
   # Other Info: None
-  def query_array_json(sql):
+  def query_array_json(self,sql):
       print("SQL query statement [array]------------------")
       print(sql + "\n")
   
@@ -68,7 +68,7 @@ class DB():
   
   
   # when we want to return a json object
-  def query_object_json(sql):
+  def query_object_json(self, sql):
     print("SQL query statement [object]------------------")
     print(sql + "\n")
     wrapped_sql = self.query_wrap_object(sql)
@@ -78,16 +78,16 @@ class DB():
         json = cur.fetchone()
         return json[0]
     
-     
-  def query_wrap_object(template):
+    
+  def query_wrap_object(self, template):
     sql = f"""
     (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
     {template}
     ) object_row);
     """
     return sql
-
-  def query_wrap_array(template):
+  
+  def query_wrap_array(self, template):
     sql = f"""
     (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
     {template}
