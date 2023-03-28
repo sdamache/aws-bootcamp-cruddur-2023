@@ -33,19 +33,9 @@ def lambda_handler(event, context):
         
         print("SQL-----")
         print(sql_query)
-        
-
-        
         cur.execute(sql_query)
-        conn.commit() 
-
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-        
-    finally:
-        if conn is not None:
-            cur.close()
-            conn.close()
-            print('Database connection closed.')
-
+        conn.commit()
+    except Exception as e:
+        print("exception")
+        print(e)
     return event
