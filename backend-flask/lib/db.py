@@ -1,10 +1,19 @@
 from psycopg_pool import ConnectionPool
 import os
+import re
+from flask import current_app as app
 
 class DB():
   def __init__(self):
     self.init_pool()
-
+    
+  def template(self,name):
+    template_path = os.path.join(app.root_path, 'db','sql', name + '.sql')
+    print(template_path)
+    with open(template_path, "r") as file:
+      sql = file.read()
+    return sql
+    
 
     
  # This code connects to a database using a connection URL. The connection URL is
@@ -13,17 +22,36 @@ class DB():
   def init_pool(self):
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
-  
-  # We want to commit data to the database  
-  def query_commit(self,sql):
+  # Be sure to check RETURNING in all UPPER CASE
+  def print_sql(self,title, sql):
+    
+    cyan = '\033[96m'
+    no_color = '\033[0m'
+    print(f"{cyan}SQL query statement [{title}]-------------{no_color}")
+    print(sql, "sqllll")
+    
+    
+  def query_commit(self,sql, params):
+    self.print_sql('commit with returning', sql)
+    
+    pattern = r"\bRETURNING\b"
+    print(pattern,sql)
+    is_returning_id = re.search(pattern, sql)
+
     try:
-      conn = self.pool.connection()
-      cur = conn.cursor() 
-      cur.execute(sql)
-      conn.commit()
-    except (Exception) as errors:
-      self. print_sql_err(errors)
+      with self.pool.connection() as conn:
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        if is_returning_id:
+          returning_id = cur.fetchone()[0]
+        conn.commit()
+        
+        if is_returning_id:
+          return returning_id
       
+    except (Exception) as errors:
+      self.print_sql_err(errors)
+    
   # when we want to return a json object
   def query_object_json(self,sql):
       # Query the database for the requested data and return a JSON object.
@@ -44,9 +72,6 @@ class DB():
           json = cur.fetchone()
           # Return the JSON object
           return json[0]
-
-
-  
 
   # Function: query_array_json
   # Description: This function executes a SQL query statement and returns a JSON object.
@@ -107,9 +132,6 @@ class DB():
     print ("\npsycopg2 ERROR:", err, "on line number:", line_num)
     print ("psycopg2 traceback:", traceback, "-- type:", err_type)
 
-    # psycopg2 extensions.Diagnostics object attribute
-    print("\nextensions.Diagnostics:", err.diag)
-    
     # print the pgcode and pgerror exceptions
     print ("pgerror:", err.pgerror)
     print ("pgcode:", err.pgcode, "\n")
