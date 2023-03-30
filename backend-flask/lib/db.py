@@ -13,29 +13,26 @@ class DB():
     with open(template_path, "r") as file:
       sql = file.read()
     return sql
-    
 
-    
  # This code connects to a database using a connection URL. The connection URL is
 # read from the environment variable CONNECTION_URL. The connection is stored
 # in the pool variable.
   def init_pool(self):
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
-  # Be sure to check RETURNING in all UPPER CASE
+  
   def print_sql(self,title, sql):
     
     cyan = '\033[96m'
     no_color = '\033[0m'
     print(f"{cyan}SQL query statement [{title}]-------------{no_color}")
-    print(sql, "sqllll")
+    print(sql + '\n')
     
-    
-  def query_commit(self,sql, params):
+# Be sure to check RETURNING in all UPPER CASE 
+  def query_commit(self,sql,params):
     self.print_sql('commit with returning', sql)
     
     pattern = r"\bRETURNING\b"
-    print(pattern,sql)
     is_returning_id = re.search(pattern, sql)
 
     try:
@@ -129,15 +126,13 @@ class DB():
     line_num = traceback.tb_lineno
 
     # print the connect() error
-    print ("\npsycopg2 ERROR:", err, "on line number:", line_num)
-    print ("psycopg2 traceback:", traceback, "-- type:", err_type)
+    print ("\npsycopg ERROR:", err, "on line number:", line_num)
+    print ("psycopg traceback:", traceback, "-- type:", err_type)
 
     # print the pgcode and pgerror exceptions
     print ("pgerror:", err.pgerror)
     print ("pgcode:", err.pgcode, "\n")
     
-    # print the error log
-    print("Logging the error")
     
     
 

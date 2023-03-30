@@ -5,6 +5,9 @@ from lib.db import db
 
 class CreateActivity:
   def run(message, user_handle, ttl):
+    print(message, 'message')
+    print(user_handle, 'user_handle')
+    print(ttl, 'ttl')
     model = {
       'errors': None,
       'data': None
@@ -43,8 +46,8 @@ class CreateActivity:
         'message': message
       }   
     else:
-      expires_at = now + ttl_offset
-      CreateActivity.create_activity(user_handle,message,expires_at)
+      expires_at = (now + ttl_offset)
+      uuid = CreateActivity.create_activity(user_handle,message,expires_at)
       model['data'] = {
         'uuid': uuid.uuid4(),
         'display_name': 'Andrew Brown',
@@ -62,6 +65,12 @@ class CreateActivity:
        'message': message, 
        'expires_at': expires_at 
        })
+    print(uuid, 'uuid')
+    print(type(uuid), 'type(uuid)')
+
+  
+    
+  
     
     
 
