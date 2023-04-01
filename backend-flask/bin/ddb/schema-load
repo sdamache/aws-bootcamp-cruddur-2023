@@ -4,7 +4,7 @@ import boto3
 import sys
 
 attrs = {
-    'endpoint_url' : 'http://localßhost:8000'
+    'endpoint_url' : 'http://localhost:8000'
 }
 
 if len(sys.argv) == 2:
@@ -15,7 +15,7 @@ if len(sys.argv) == 2:
     
         
 ddb = boto3.client('dynamodb', **attrs)
-table_name = 'cruddur-message'
+table_name = 'cruddur-messages'
 
 response = ddb.create_table(
     TableName=table_name,
