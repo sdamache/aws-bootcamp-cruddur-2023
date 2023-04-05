@@ -1,7 +1,8 @@
 tasks:
-  - command: |
-      # Run install.sh script
-      ./install.sh
+  - name: aws_cli,psql 
+    command: |
+      cd /workspace/aws-bootcamp-cruddur-2023
+      ./install
 
   - name: react-js
     command: |
