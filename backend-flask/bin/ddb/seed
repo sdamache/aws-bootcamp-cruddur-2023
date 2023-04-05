@@ -36,11 +36,11 @@ def get_user_uuids():
             )
     """
     users = db.query_array_json(sql,{
-        'my_handle':  'andrewbrown',
-        'other_handle': 'bayko'
+        'my_handle':  'nikhildsai',
+        'other_handle': 'sdamache'
     })
-    my_user    = next((item for item in users if item["handle"] == 'andrewbrown'), None)
-    other_user = next((item for item in users if item["handle"] == 'bayko'), None)
+    my_user    = next((item for item in users if item["handle"] == 'nikhildsai'), None)
+    other_user = next((item for item in users if item["handle"] == 'sdamache'), None)
     results = {
         'my_user': my_user,
         'other_user': other_user
@@ -49,6 +49,7 @@ def get_user_uuids():
     print('get_user_uuids')
     print(results)
     return results
+  
 
 def create_message_group(client,message_group_uuid, my_user_uuid, last_message_at=None, message=None, other_user_uuid=None, other_user_display_name=None, other_user_handle=None):
   table_name = 'cruddur-messages'
@@ -67,6 +68,9 @@ def create_message_group(client,message_group_uuid, my_user_uuid, last_message_a
     Item=record
   )
   print(response)
+  
+  
+  
 
 def create_message(client,message_group_uuid,created_at,message,my_user_uuid,my_user_display_name,my_user_handle):
   # Entity # Message Group Id
@@ -87,6 +91,7 @@ def create_message(client,message_group_uuid,created_at,message,my_user_uuid,my_
   )
   # print the response
   print(response)
+  
 
 now = datetime.now(timezone.utc).astimezone()
 users = get_user_uuids()

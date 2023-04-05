@@ -4,9 +4,6 @@ import boto3
 import sys
 import os
 
-ttrs = {
-  'endpoint_url': 'http://localhost:8000'
-}
 
 attrs = {
     'endpoint_url': 'http://localhost:8000'
