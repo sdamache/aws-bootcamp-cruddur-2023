@@ -73,7 +73,8 @@ class DB():
       with conn.cursor() as cur:
         cur.execute(sql,params)
         json = cur.fetchone()
-        return json[0]  
+        return json[0]
+        
   
 
   # Function: query_array_json
