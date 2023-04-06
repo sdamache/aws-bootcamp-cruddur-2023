@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta, timezone
-
 from lib.db import db
 from lib.ddb import Ddb
 
@@ -21,7 +20,7 @@ class CreateMessage:
 
     if (mode == "create"):
       if user_receiver_handle == None or len(user_receiver_handle) < 1:
-        model['errors'] = ['user_reciever_handle_blank']
+        model['errors'] = ['user_receiver_handle_blank']
 
     if message == None or len(message) < 1:
       model['errors'] = ['message_blank'] 
@@ -34,6 +33,7 @@ class CreateMessage:
         'display_name': 'Sai Nikhl',
         'handle':  user_sender_handle,
         'message': message
+        
       }
     else:
       sql = db.template('users','create_message_users')
@@ -68,16 +68,16 @@ class CreateMessage:
           my_user_display_name=my_user['display_name'],
           my_user_handle=my_user['handle']
         )
-      # elif (mode == "create"):
-      #   data = Ddb.create_message_group(
-      #     client=ddb,
-      #     my_user_uuid=my_user['uuid'],
-      #     my_user_display_name=my_user['display_name'],
-      #     my_user_handle=my_user['handle'],
-      #     other_user_uuid=other_user['uuid'],
-      #     other_user_display_name=other_user['display_name'],
-      #     other_user_handle=other_user['handle']
-      #   )
-      #MomentoCounter.incr(f"msgs/{user_handle}")
+      elif (mode == "create"):
+        data = Ddb.create_message_group(
+          client=ddb,
+          message=message,
+          my_user_uuid=my_user['uuid'],
+          my_user_display_name=my_user['display_name'],
+          my_user_handle=my_user['handle'],
+          other_user_uuid=other_user['uuid'],
+          other_user_display_name=other_user['display_name'],
+          other_user_handle=other_user['handle']
+        )
       model['data'] = data
     return model
