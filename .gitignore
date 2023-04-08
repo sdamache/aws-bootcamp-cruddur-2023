@@ -1,3 +1,4 @@
 
 aws/task-definitions/session-manager-plugin.deb
-frontend/build/*
+docker/**/*
+frontend-react-js/build/*
