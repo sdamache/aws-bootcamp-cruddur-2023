@@ -2,19 +2,3 @@
 docker run --rm \
 --network cruddur-net \
 -p 4567:4567 \
---env AWS_ENDPOINT_URL=http://dynamodb-local:8000 \
---env CONNECTION_URL=postgresql://postgres:password@db:5432/cruddur \
---env FRONTEND_URL="https://sdamache-crispy-space-pancake-7wj6rjjvr9q269r-3000.preview.app.github.dev" \
---env BACKEND_URL="https://sdamache-crispy-space-pancake-7wj6rjjvr9q269r-4567.preview.app.github.dev" \
---env OTEL_SERVICE_NAME=backend-flask \
---env OTEL_EXPORTER_OTLP_ENDPOINT=https://api.honeycomb.io \
---env OTEL_EXPORTER_OTLP_HEADERS=x-honeycomb-team=j7DN8gftaK31rB1Sa40I7H \
---env AWS_XRAY_URL=*4567-sdamache-crispy-space-pancake-7wj6rjjvr9q269r.preview.app.github.dev* \
---env AWS_XRAY_DAEMON_ADDRESS=xray-daemon:2000 \
---env AWS_DEFAULT_REGION=us-east-1 \
---env AWS_ACCESS_KEY_ID=AKIAVS36AKMVFJRJSXAX \
---env AWS_SECRET_ACCESS_KEY=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 \
---env ROLLBAR_ACCESS_TOKEN=10980829c0114b5ba845a70ae82b42b2 \
---env AWS_COGNITO_USER_POOL_ID=us-east-1_8ZQLs88Ah \
---env AWS_COGNITO_USER_POOL_CLIENT_ID=5b6ro31g97urk767adrbrdj1g5 \
--it backend-flask-prod
