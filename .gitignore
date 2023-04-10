@@ -4,3 +4,6 @@ docker/**/*
 frontend-react-js/build/*
 frontend-react-js.env
 backend-flask.env
+.devcontainer/Dockerfile
+.devcontainer/devcontainer.json
+
