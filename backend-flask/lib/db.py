@@ -102,7 +102,10 @@ class DB():
       with conn.cursor() as cur:
         cur.execute(wrapped_sql,params)
         json = cur.fetchone()
-        return json[0]
+        if json == None:
+          return "{}"
+        else:
+          return json[0]
     
     
   def query_wrap_object(self, template):

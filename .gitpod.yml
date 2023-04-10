@@ -1,16 +1,19 @@
 tasks:
   - name: aws_cli,psql 
-    command: |
+    before: |
       cd /workspace/aws-bootcamp-cruddur-2023
       ./install
 
   - name: react-js
     command: |
+      source "$THEIA_WORSKPACE_ROOT/bin/backend/generate-env-frontend"
       cd frontend-react-js
       npm i
+  - name:  
   
   - name: flask
     command: |
+      source "$THEIA_WORSKPACE_ROOT/bin/backend/generate-env-backend"
       cd backend-flask
       pip3 install -r requirements.txt
   
