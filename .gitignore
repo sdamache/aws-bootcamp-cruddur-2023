@@ -6,4 +6,5 @@ frontend-react-js.env
 backend-flask.env
 .devcontainer/Dockerfile
 .devcontainer/devcontainer.json
+node_modules
 
