@@ -1,30 +1,28 @@
-from datetime import datetime, timedelta, timezone
-from aws_xray_sdk.core import xray_recorder
+# from aws_xray_sdk.core import xray_recorder
+from lib.db import db
+import logging
 
+# logging.basicConfig(level=logging.DEBUG)
+# logger = logging.getLogger(__name__)
 class UserActivities:
   def run(user_handle):
     # segment = xray_recorder.begin_segment('user_activities')
+    # logger.debug("User's handle: %s",user_handle)
     model = {
       'errors': None,
       'data': None
     }
 
-    now = datetime.now(timezone.utc).astimezone()
-
-    
     if user_handle == None or len(user_handle) < 1:
       model['errors'] = ['blank_user_handle']
     else:
-      now = datetime.now()
-      results = [{
-        'uuid': '248959df-3079-4947-b847-9e0892d1bab4',
-        'handle':  'Andrew Brown',
-        'message': 'Cloud is fun!',
-        'created_at': (now - timedelta(days=1)).isoformat(),
-        'expires_at': (now + timedelta(days=31)).isoformat()
-      }]
+      sql = db.template('users','show')
+      # logger.info("sql: %s", sql)
+      results = db.query_object_json(sql,{'handle': user_handle})
+      # logger.info("Results: %s", results)
       model['data'] = results
       
+    return model
     # # AWS X-ray
     # subsegment = xray_recorder.begin_subsegment('mock-data')
     
@@ -33,4 +31,3 @@ class UserActivities:
     #   "results_length": len(results)
     # }
     # subsegment.put_metadata('now', dict, 'namespace')
-    return model
