@@ -8,3 +8,4 @@ backend-flask.env
 .devcontainer/devcontainer.json
 node_modules
 
+sample.sh
