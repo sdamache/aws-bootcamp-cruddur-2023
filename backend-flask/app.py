@@ -186,8 +186,8 @@ def data_create_message():
   access_token = extract_access_token(request.headers)
   try:
     claims = cognito_token_verification.verify(access_token)
-    # authenicatied request
-    app.logger.debug("authenicated")
+    # authenticated request
+    app.logger.debug("authenticated")
     app.logger.debug(claims)
     cognito_user_id = claims['sub']
     if message_group_uuid == None:

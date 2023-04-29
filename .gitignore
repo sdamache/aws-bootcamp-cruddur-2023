@@ -9,3 +9,4 @@ backend-flask.env
 node_modules
 
 sample.sh
+.DS_Store
