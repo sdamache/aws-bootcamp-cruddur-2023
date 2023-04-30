@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /usr/bin/env bash
 if [ -z "$1" ]; then
     echo "NO task id provided eg: ./bin/ecs/connect-to-frontend-react-js 0db9347ee0e84da2bb7901c8c584db81 frontend-react-js"
     exit 1
