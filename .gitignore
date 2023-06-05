@@ -12,3 +12,4 @@ sample.sh
 .DS_Store
 backend-flask/db/sql/users/show.sql
 docker/dynamodb/shared-local-instance.db
+.DS_Store
