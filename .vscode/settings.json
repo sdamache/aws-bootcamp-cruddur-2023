@@ -7,5 +7,6 @@
     "cSpell.words": [
         "datetime",
         "nikhildsai"
-    ]
+    ],
+    "files.autoSave": "afterDelay"
 }
