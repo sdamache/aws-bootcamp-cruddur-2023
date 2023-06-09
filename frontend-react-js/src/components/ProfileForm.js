@@ -15,13 +15,6 @@ export default function ProfileForm(props) {
   }, [props.profile])
   
   const s3uploadkey = async (event)=> {
-    console.log('event',event)
-    // const file = event.target.files[0]
-    // const filename = file.name
-    // const size = file.size
-    // const type = file.type
-    // const preview_image_url = URL.createObjectURL(file)
-    // console.log(filename,size,type)
     try {
       console.log('s3uploadkey')
       const backend_url = "https://lje9l2bhjg.execute-api.us-east-1.amazonaws.com/avatars/key_upload"
@@ -30,6 +23,7 @@ export default function ProfileForm(props) {
       const res = await fetch(backend_url, {
         method: "POST",
         headers: {
+          'Origin': 'https://3000-sdamache-awsbootcampcru-0ihiu33o0d7.ws-us99.gitpod.io',
           'Authorization': `Bearer ${access_token}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -38,6 +32,7 @@ export default function ProfileForm(props) {
       let data = await res.json();
       if (res.status === 200) {
         console.log('pre-signed url', data)
+        return data.url
       } else {
         console.log(res)
       }
@@ -53,12 +48,11 @@ export default function ProfileForm(props) {
     const type = file.type
     const preview_image_url = URL.createObjectURL(file)
     console.log(filename,size,type)
+    const presigned_url = await s3uploadkey()
+    console.log('presigned_url_s3upload',presigned_url)
     try {
       console.log('s3upload')
-      const backend_url = "https://s3.amazonaws.com/cruddur-uploaded-avatars.lol/mock.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVS36AKMVOLHL4P7G%2F20230606%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230606T044125Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=0077e4718f65e4dc3ce0e597f187aa7eb801bcb0859fc1cc59604dc595555fdb"
-      await getAccessToken()
-      const access_token = localStorage.getItem("access_token")
-      const res = await fetch(backend_url, {
+      const res = await fetch(presigned_url, {
         method: "PUT",
         body: file,
         headers: {
@@ -67,7 +61,7 @@ export default function ProfileForm(props) {
       });
       let data = await res.json();
       if (res.status === 200) {
-        console.log('pre-signed url', data)
+        setPresignedUrl(data.url)
       } else {
         console.log(res)
       }
@@ -135,9 +129,9 @@ export default function ProfileForm(props) {
             </div>
           </div>
           <div className="popup_content">
-            <div className="upload" onClick={s3uploadkey}>
+            {/* <div className="upload" onClick={s3uploadkey}>
               Upload Avatar
-            </div>
+            </div> */}
           <input type="file" name="avatarupload" onChange={s3upload} />
             {/* <div className="upload" onClick={s3upload}>
                 Upload Avatar for real
