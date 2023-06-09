@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-- e # exit on error
+set - e # exit on error
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 LABEL="rds-update-sgr-rule"
