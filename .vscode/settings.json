@@ -6,7 +6,8 @@
     "editor.renderWhitespace": "all",
     "cSpell.words": [
         "datetime",
-        "nikhildsai"
+        "nikhildsai",
+        "uploadkey"
     ],
     "files.autoSave": "afterDelay"
 }
