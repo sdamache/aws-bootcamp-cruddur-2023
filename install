@@ -21,7 +21,7 @@ sudo apt install -y postgresql-client-13 libpq-dev
 ## GITPOD_IP
 echo "GITPOD_IP"
 export GITPOD_IP=$(curl ifconfig.me)
-source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds-update-sgr-rule"
+source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds/rds-update-sgr-rule"
 
 
 
