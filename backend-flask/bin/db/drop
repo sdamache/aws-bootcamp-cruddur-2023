@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /usr/bin/env bash
 
 echo "Db-drop"
 CYAN='\033[1;36m'

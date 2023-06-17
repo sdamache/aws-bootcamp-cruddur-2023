@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /usr/bin/env bash
 docker run --rm \
 --network cruddur-net \
 -p 4567:4567 \

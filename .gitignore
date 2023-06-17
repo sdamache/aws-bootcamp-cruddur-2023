@@ -6,3 +6,12 @@ docker/**/*
 frontend-react-js/build/*
 frontend-react-js.env
 backend-flask.env
+.devcontainer/Dockerfile
+.devcontainer/devcontainer.json
+node_modules
+
+sample.sh
+.DS_Store
+backend-flask/db/sql/users/show.sql
+docker/dynamodb/shared-local-instance.db
+.DS_Store
