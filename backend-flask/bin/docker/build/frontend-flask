@@ -1,0 +1,11 @@
+#! /usr/bin/bash
+
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://api.cruddur.com" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="us-east-1_8ZQLs88Ah" \
+--build-arg REACT_APP_CLIENT_ID="h1ahnoa4hgt0vrltg1glcg6iq" \
+-t frontend-react-js \
+-f /workspaces/aws-bootcamp-cruddur-2023/frontend-react-js/Dockerfile.prod \
+.

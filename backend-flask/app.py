@@ -122,18 +122,14 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 
-# Creating an 500 error for checking the working of cloud watch logs
-# @app.after_request
-# def after_request(response):
-#     timestamp = strftime('[%Y-%b-%d %H:%M]')
-#     LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
-#     return response
+# @app.route('/rollbar/test')
+# def rollbar_test():
+#     rollbar.report_message('Hello World!', 'warning')
+#     return "Hello World!"
 
-
-@app.route('/rollbar/test')
-def rollbar_test():
-    rollbar.report_message('Hello World!', 'warning')
-    return "Hello World!"
+@app.route('/api/health-check')
+def health_check():
+  return {'success': True}, 200
   
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
