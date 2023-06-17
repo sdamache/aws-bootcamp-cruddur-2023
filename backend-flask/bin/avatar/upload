@@ -3,4 +3,4 @@ ABS_PATH=$(readlink -f "$0")
 DATA_PATH=$(dirname $ABS_PATH)
 DATA_FILE_PATH="$DATA_PATH/files/star_trek.jpg"
 
-aws s3 cp "$DATA_FILE_PATH" "s3://cruddur-uploaded-avatars.lol/data.jpg"
+aws s3 cp "$DATA_FILE_PATH" "s3://assets.cruddur.lol/data.jpg"
