@@ -1,7 +1,7 @@
 # Buildspec runs in the build stage of your pipeline.
 version: 0.2
 phases:
- install:
+  install:
     runtime-versions:
       docker: 20
     commands:
