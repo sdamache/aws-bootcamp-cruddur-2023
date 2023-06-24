@@ -1,9 +1,9 @@
 # Buildspec runs in the build stage of your pipeline.
 version: 0.2
 phases:
-  install:
+ install:
     runtime-versions:
-      docker: 19
+      docker: 20
     commands:
       - echo "cd into $CODEBUILD_SRC_DIR/backend"
       - cd $CODEBUILD_SRC_DIR/backend-flask
