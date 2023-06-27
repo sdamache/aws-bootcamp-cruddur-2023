@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  AWS CloudFormation Template for the AWS ECS fargate cluster
+Resources:
+  ECSCluster: #LogicalName
+      Type: 'AWS::ECS::Cluster'
+      Properties:
+        ClusterName: MyCluster1
+        CapacityProviders:
+          - FARGATE
+# Parameter:
+# Mappings:
+# Outputs:
+#   Metadata:
+#   Properties:
+
